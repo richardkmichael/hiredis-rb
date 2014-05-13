@@ -288,7 +288,7 @@ static VALUE connection_connect_unix(int argc, VALUE *argv, VALUE self) {
 static VALUE connection_is_connected(VALUE self) {
     redisParentContext *pc;
     Data_Get_Struct(self,redisParentContext,pc);
-    if (pc->context && !pc->context->err)
+    if (pc->context && (pc->context->flags & REDIS_CONNECTED))
         return Qtrue;
     else
         return Qfalse;
